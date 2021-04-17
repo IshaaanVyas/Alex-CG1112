@@ -31,7 +31,6 @@ volatile TDirection dir = STOP;
 TBuffer _recvBuffer;
 TBuffer _xmitBuffer;
 
-//#define PI 3.141592654
 #define ALEX_LENGTH 17
 #define ALEX_BREADTH 12
 
@@ -163,6 +162,7 @@ void sendStatus()
   statusPacket.params[7] = rightReverseTicksTurns;
   statusPacket.params[8] = forwardDist;
   statusPacket.params[9] = reverseDist;
+  // added extra colour parameter so that alex can send back colour of object
   statusPacket.params[10] = colour;
   sendResponse(&statusPacket);
   
@@ -348,6 +348,8 @@ void setupSerial()
 {
   // To replace later with bare-metal.
   Serial.begin(9600);
+  // Commented out portion was our attempt at bare-metalling the USART
+  // However, we were uncessful
   //cli();
   /**
   UCSR0C = 0b00000110;
@@ -452,7 +454,8 @@ void startMotors()
 {
   TCCR2B |= 0b00000010;
 }
-
+// Might have commented out this portion for debugging and forgot to uncomment
+// This is how it was during the final demo
 void setupPowerSaving() {/**
   WDT_off();
   PRR |= PRR_TWI_MASK;
@@ -819,23 +822,6 @@ void handlePacket(TPacket *packet)
 }
 
 void loop() {
-
-// Uncomment the code below for Step 2 of Activity 3 in Week 8 Studio 2
- 
- //forward(0, 100);
- /*dir = FORWARD;
- Serial.print("LEFT FORWARD: ");
- Serial.println(leftForwardTicks);
- Serial.print("LEFT BACKWARD: ");
- Serial.println(leftReverseTicks);
- Serial.print("RIGHT FORWARD: ");
- Serial.println(rightForwardTicks);
- Serial.print("RIGHT BACKWARD: ");
- Serial.println(rightReverseTicks);*/
-
-
-
-
   TPacket recvPacket; // This holds commands from the Pi
 
   TResult result = readPacket(&recvPacket);
