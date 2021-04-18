@@ -8,4 +8,4 @@ https://github.com/ros-visualization/visualization_tutorials/blob/indigo-devel/i
 Furthermore, our team used the teleop_twist_keyboard package (without any edits so not included in this repository) from:
 https://github.com/ros-teleop/teleop_twist_keyboard
 
-The Baremetal arduino code is in the baremetal4 fodler
+The Baremetal arduino code is in the baremetal4 folder. Code for motors is in baremetal, code for UART is not.
